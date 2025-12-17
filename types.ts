@@ -3,21 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 
-export enum GenerationStatus {
-  IDLE = 'IDLE',
-  LOADING = 'LOADING',
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR'
-}
+export type EngineState = 'idle' | 'processing' | 'complete';
 
-export interface GeneratedSvg {
+export interface EngineLog {
   id: string;
-  content: string;
-  prompt: string;
-  timestamp: number;
+  message: string;
+  type: 'info' | 'success' | 'process';
 }
 
-export interface ApiError {
-  message: string;
-  details?: string;
+export interface StrategyDetails {
+  id: string;
+  title: string;
+  description: string;
+  color: string; // Tailwind color class base (e.g. 'emerald', 'blue')
+  riskLevel: 'Low' | 'Medium' | 'High';
+  successRate: number;
+  monthlyIncome: string;
+  endAge: number;
+  assets: { name: string; value: number; color: string }[];
+  projection: { year: string; value: number; baseline: number }[];
 }
