@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { 
   Heart, Wallet, Users, Plane, 
   Settings, Activity, PieChart, TrendingUp, 
@@ -93,7 +93,16 @@ export const RetirementEngine: React.FC = () => {
   const [activeEngine, setActiveEngine] = useState<string | null>(null);
   const [selectedStrategy, setSelectedStrategy] = useState<StrategyDetails | null>(null);
   const [inputStep, setInputStep] = useState(0);
+  const terminalEndRef = useRef<HTMLDivElement>(null);
   
+  // Only scroll the terminal into view if the simulation is actually running
+  // This prevents the whole page from focusing down to the component on load.
+  useEffect(() => {
+    if (state === 'processing' && terminalEndRef.current) {
+      terminalEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [logs, state]);
+
   const addLog = (message: string, type: 'info' | 'success' | 'process' = 'info') => {
     setLogs(prev => [...prev.slice(-4), { id: Date.now().toString(), message, type }]);
   };
@@ -512,7 +521,7 @@ export const RetirementEngine: React.FC = () => {
                   </span>
                 </div>
               ))}
-              <div ref={(el) => el?.scrollIntoView({ behavior: 'smooth' })} />
+              <div ref={terminalEndRef} />
             </div>
           </div>
         </div>
