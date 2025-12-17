@@ -6,6 +6,7 @@
 import React, { useRef } from 'react';
 import { Header } from './components/Header';
 import { RetirementEngine } from './components/RetirementEngine';
+import { LongevityWidget } from './components/LongevityWidget';
 import { Target, Shield, Heart, TrendingUp, ArrowDown, CheckCircle2, Linkedin } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -152,6 +153,9 @@ const App: React.FC = () => {
         </section>
 
       </main>
+
+      {/* --- SECRET CURIOSITY WIDGET --- */}
+      <LongevityWidget onExplore={scrollToEngine} />
 
       {/* --- FOOTER --- */}
       <footer className="border-t border-white/10 bg-zinc-900/50 py-12 px-4 mt-auto">
